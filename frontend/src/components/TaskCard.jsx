@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, CardHeader, Grid2 as Grid, Switch, Typography } from "@mui/material"
 import PropTypes from "prop-types"
 import TaskMenu from "./TaskMenu"
-import { useTasks } from "../hook/useTasks";
+import { useTasks } from "../hooks/useTasks";
 import { useState } from "react";
 
 export default function TaskCard({ task }) {
