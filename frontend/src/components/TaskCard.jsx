@@ -4,7 +4,7 @@ import TaskMenu from "./TaskMenu"
 
 export default function TaskCard({ task }) {
     return (
-        <Grid key={task.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }} item>
+        <Grid key={task.id} size={{ xs: 12, sm: 6, md: 4, lg: 2 }} sx={{ minWidth: 360 }}>
             <Card>
                 <CardHeader title={task.title} action={<TaskMenu task={task} />} />
                 <CardContent>
