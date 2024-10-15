@@ -20,12 +20,14 @@ app.get("/tasks", async (req, res) => {
 app.post("/tasks", async (req, res) => {
   const { title, description } = req.body
   try {
-    const [result] = await db.query("INSERT INTO tasks (title, description,status) VALUES (?, ?, ?)", [
+    const [result] = await db.query("INSERT INTO tasks (title, description, status) VALUES (?, ?, ?) RETURNING *", [
       title,
       description,
       "pendiente",
-    ])
-    res.json({ id: result.insertId, title, description, status: "pendiente" })
+    ]);
+    const [task] = result;
+     res.json(task);    
+   
   } catch (error) {
     console.error("Error al crear la tarea:", error)
     res.status(500).json({ error: `Error al crear la tarea: ${error.message}` })
@@ -35,13 +37,14 @@ app.post("/tasks", async (req, res) => {
 // Actualizar el título, descripción y estado de una tarea
 app.put("/tasks/edit/:id", async (req, res) => {
   const { title, description, status } = req.body
+  console.log(req.body)
   const { id } = req.params
   try {
     const [result] = await db.query(
       "UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ? RETURNING *",
       [title, description, status, id]
 	)
-    // console.log(result)
+    console.log(result)
     const task = result[0]
     // console.log(task)
 	// console.log(typeof task)  

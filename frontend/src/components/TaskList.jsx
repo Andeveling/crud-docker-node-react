@@ -6,14 +6,14 @@ export default function TaskList() {
     const { state: { tasks }, loading } = useTasks()
 
     if (loading) {
-        return <Typography variant="h5" align="center">Cargando...</Typography>
+        return <Typography variant="h5" align="center">Cargando...</Typography>        
     }
     return (
         <>
             {tasks.length > 0 ? (
                 <Grid container spacing={2}>
                     {tasks.map((task) => (
-                        <TaskCard key={task.id} task={task} />
+                        <TaskCard key={task.id} task={task} size={10} />
                     ))}
                 </Grid>
             ) :
