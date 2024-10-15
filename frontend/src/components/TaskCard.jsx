@@ -27,7 +27,7 @@ export default function TaskCard({ task }) {
 
   
     return (
-        <Grid key={task.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }} item>
+        <Grid key={task.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }} sx={{ minWidth: 360 }} item>
             <Card sx={ checked ? { opacity: 0.5 } : {} }>
                 <CardHeader title={task.title} action={<TaskMenu task={task} />} />
                 <CardContent>

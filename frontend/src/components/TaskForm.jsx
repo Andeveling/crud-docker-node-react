@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Button, Card, CardActions, CardContent, CardHeader, Stack, TextField } from "@mui/material"
 import { Controller, FormProvider, useForm } from "react-hook-form"
-import { useTasks } from "../hook/useTasks"
+import { useTasks } from "../hooks/useTasks"
 import { createTaskSchema } from "../schemas/createTask.schema"
 import TaskInputTitle from "./TaskInputTitle"
 import PropTypes from "prop-types"
 
 
-export default function TaskForm({ task }) {
+export default function TaskForm({ task, handleCloseModal, handleCloseMenu }) {
     const isEdit = typeof task?.id === "number"
 
     const methods = useForm({
@@ -26,15 +26,17 @@ export default function TaskForm({ task }) {
         console.log(data)
         if (data.id) {
             updateTasks(data)
+            handleCloseModal()
+            handleCloseMenu()
         } else {
             const newTask = {
                 title: data.title,
                 description: data.description,
             }
             addTask(newTask)
+            methods.reset()
         }
 
-        methods.reset()
 
     }
 
@@ -82,4 +84,6 @@ TaskForm.propTypes = {
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
     }),
+    handleCloseModal: PropTypes.func.optional,
+    handleCloseMenu: PropTypes.func.optional,
 }

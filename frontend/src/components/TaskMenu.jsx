@@ -7,7 +7,7 @@ import PropType from 'prop-types';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import TaskForm from './TaskForm';
-import { useTasks } from '../hook/useTasks';
+import { useTasks } from '../hooks/useTasks';
 
 export default function TaskMenu({ task }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -33,6 +33,10 @@ export default function TaskMenu({ task }) {
     };
 
 
+    const handleDelete = (id) => {
+        deleteTasks(id)
+    }
+
     return (
         <div>
             <IconButton
@@ -54,7 +58,7 @@ export default function TaskMenu({ task }) {
                 }}
             >
                 <MenuItem onClick={handleClickOpenDialog}>Editar</MenuItem>
-                <MenuItem onClick={() => deleteTasks(task.id)}>Borrar</MenuItem>
+                <MenuItem onClick={() => handleDelete(task.id)}>Borrar</MenuItem>
             </Menu>
 
             <Dialog
@@ -64,7 +68,7 @@ export default function TaskMenu({ task }) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogContent>
-                    <TaskForm task={task} />
+                    <TaskForm task={task} handleCloseModal={handleCloseDialog} handleCloseMenu={handleClose} />
                 </DialogContent>
             </Dialog>
         </div>
